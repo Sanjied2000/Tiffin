@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/lib/supabaseClient";
 
 type FoodRouteContext = {
@@ -7,11 +7,14 @@ type FoodRouteContext = {
   };
 };
 
-export async function GET(request: string, { params }: FoodRouteContext) {
-  const { category } = await params;
+export async function GET(
+  request: NextRequest,
+  { params }: FoodRouteContext
+) {
+  const category = params.category;
 
   const { data, error } =
-    category == "All"
+    category === "All"
       ? await supabase.from("fooditems").select("*")
       : await supabase.from("fooditems").select("*").eq("category", category);
 
