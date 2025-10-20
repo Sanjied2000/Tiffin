@@ -1,17 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/lib/supabaseClient";
 
-type FoodRouteContext = {
-  params: {
-    category: string;
-  };
-};
-
 export async function GET(
   request: NextRequest,
-  { params }: FoodRouteContext
+  context: { params: Promise<{ category: string }> }
 ) {
-  const category = params.category;
+  const { category } = await context.params;
 
   const { data, error } =
     category === "All"
