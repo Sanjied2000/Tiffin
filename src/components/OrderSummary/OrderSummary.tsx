@@ -1,6 +1,18 @@
 import React from "react";
-
-export const OrderSummary = () => {
+  type OrderData = {
+    user_id: string;
+    order_id: string;
+    delivery_location: string | null;
+    sub_total: number;
+    delivery_fee: number;
+    total_price: number;
+    instruction: string;
+    payment_method: string;
+  };
+interface OrderSummaryProps {
+  orderDetail: OrderData;
+}
+export const OrderSummary : React.FC <OrderSummaryProps> = ({ orderDetail }) => {
   return (
     <div className="bg-white rounded-2xl w-full p-6">
       <div className="flex justify-between items-center mb-6">
@@ -23,24 +35,24 @@ export const OrderSummary = () => {
       </div>
       <div className="  border-b-1 h-0 w-full mt-10  border-gray-400 opacity-50"></div>
       <div className="flex justify-between my-2 text-gray-500">
-        <div>Subtotal</div> <div>$50</div>
+        <div>Subtotal</div> <div>{orderDetail.sub_total}</div>
       </div>
       <div className="flex justify-between my-2 text-gray-500">
-        <div>Delivery Fee</div> <div>$5</div>
+        <div>Delivery Fee</div> <div>{orderDetail.delivery_fee}</div>
       </div>
       <div className="  border-b-1 h-0 w-full mt-10  border-gray-400 opacity-50"></div>
-      <div className="flex justify-between my-2 font-bold">
-        <div>Total</div> <div>$55</div>
+      <div className="flex justify-between my-2 font-bold ">
+        <div>Total</div> <div>{orderDetail.total_price}</div>
       </div>
       <div className="  border-b-1 h-0 w-full mt-10  border-gray-400 opacity-50"></div>
       <div className="my-2">
         <div className="text-gray-500 text-sm">Payment Method</div>{" "}
-        <div className="font-bold">Student Token</div>
+        <div className="font-bold">{orderDetail.payment_method}</div>
       </div>
       <div className="  border-b-1 h-0 w-full mt-10  border-gray-400 opacity-50"></div>
       <div className="my-2">
         <div className="text-gray-500 text-sm">Delivery Address</div>{" "}
-        <div className="font-bold">Student Hall-3 , 4th Floor</div>
+        <div className="font-bold">{orderDetail.delivery_location}</div>
       </div>
     </div>
   );

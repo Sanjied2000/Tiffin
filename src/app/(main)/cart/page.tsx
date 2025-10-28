@@ -10,8 +10,6 @@ import { useCartStore } from "@/store/cartStore";
 export default function Cart() {  
   const { cart } = useCartStore();
 
-
-
   return (
     <>
       <div className="min-h-screen mt-6">

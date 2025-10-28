@@ -1,5 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { toast } from "sonner";
+
 
 // For Using this...
 // import { useCartStore } from "@/store/cartStore";
@@ -17,16 +19,22 @@ type CartItem = {
   food_name: string;
   price: number;
   quantity: number;
-  img_url:string;
+  img_url: string;
 };
 
 type CartState = {
   cart: CartItem[];
-  addToCart: (food_id: string, food_name: string, price: number,img_url:string) => void;
+  addToCart: (
+    food_id: string,
+    food_name: string,
+    price: number,
+    img_url: string
+  ) => void;
   removeFromCart: (food_id: string) => void;
   clearCart: () => void;
   increaseQuantity: (food_id: string) => void;
   decreaseQuantity: (food_id: string) => void;
+ 
 };
 
 export const useCartStore = create<CartState>()(
@@ -34,18 +42,18 @@ export const useCartStore = create<CartState>()(
     (set, get) => ({
       cart: [],
 
-      addToCart: (food_id, food_name, price,img_url) =>
+      addToCart: (food_id, food_name, price, img_url) =>
         set((state) => {
           const existing = state.cart.find((i) => i.food_id === food_id);
           if (existing) {
-            alert("Item Already Exists in Cart!");
+            toast.warning("Item Already Exists in Cart!");
             return state;
           }
-          alert("Item Added to Cart!");
+          toast.success("Item Added to Cart!");
           return {
             cart: [
               ...state.cart,
-              { food_id, food_name, price,img_url, quantity: 1 },
+              { food_id, food_name, price, img_url, quantity: 1 },
             ],
           };
         }),
@@ -78,6 +86,7 @@ export const useCartStore = create<CartState>()(
               : item
           ),
         })),
+     
     }),
     { name: "cart-storage" }
   )

@@ -3,6 +3,7 @@ import React from "react";
 import Image from "next/image";
 import { CartItem, FoodItem } from "@/lib/type";
 import { useCartStore } from "@/store/cartStore";
+import { toast } from "sonner";
 
 
 interface OrderCardProps {
@@ -50,7 +51,7 @@ export const OrderCard: React.FC<OrderCardProps> = ({ cart_item }) => {
               className="ml-0.5 cursor-pointer"
               onClick={() => {
                 removeFromCart(cart_item.food_id);
-                alert("Item Removed!");
+                toast.warning("Item Removed!");
               }}
             >
               <Image src="/trash.png" alt="" width={15} height={15}></Image>

@@ -8,6 +8,11 @@ export interface FoodItem {
   new_price: number;
   old_price?: number;
   vegeterian:boolean;
+  gluten_free:boolean;
+  protin_rich:boolean;
+  dairy:boolean;
+  eggs:boolean;
+  nuts:boolean;
 }
 export interface CartItem {
   food_id:string;
