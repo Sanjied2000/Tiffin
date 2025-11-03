@@ -1,6 +1,11 @@
 import React from "react";
+import { useZUserStore } from "@/store/useZUserStore";
 
 const Profile = () => {
+  const { zuser } = useZUserStore();
+  if (!zuser) {
+    return <div>Loading...</div>;
+  }
   return (
     <div>
     <div className="bg-white rounded w-full p-6">
@@ -9,11 +14,11 @@ const Profile = () => {
         <div>
           <div className="mb-6">
             <div className="text-gray-500">Name</div>
-            <div>Mr.Charlie</div>
+            <div>{zuser.name}</div>
           </div>
           <div>
             <div className="text-gray-500">Email</div>
-            <div>charlie@gmail.com</div>
+            <div>{zuser.email}</div>
           </div>
         </div>
         <div className="mr-120">
@@ -27,10 +32,6 @@ const Profile = () => {
           </div>
         </div>
       </div>
-    </div>
-
-    <div className="bg-white rounded w-full p-6 mt-6">
-        <div className="text-lg font-bold">Change Password</div>
     </div>
     </div>
   );

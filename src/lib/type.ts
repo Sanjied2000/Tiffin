@@ -33,3 +33,16 @@ export interface Order {
   delivery_location: string;
   order_status: string;
 };
+
+export interface OrderData2 {
+  user_id: string;
+  order_id: string;
+  delivery_location: string | null;
+  sub_total: number;
+  delivery_fee: number;
+  total_price: number;
+  instruction: string;
+  payment_method: string;
+  created_at: string;
+  order_status: string;
+};

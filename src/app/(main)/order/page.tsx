@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import OrderSteps from "@/components/OrderSteps/OrderSteps";
+import { OrderSteps } from "@/components/OrderSteps/OrderSteps";
 import { OrderSummary } from "@/components/OrderSummary/OrderSummary";
 import { useZUserStore } from "@/store/useZUserStore";
 import { useQuery } from "@tanstack/react-query";
@@ -16,6 +16,8 @@ type OrderData = {
     total_price: number;
     instruction: string;
     payment_method: string;
+    created_at:string;
+    order_status: string;
   };
 
   const { zuser } = useZUserStore();
@@ -55,7 +57,19 @@ type OrderData = {
         <div>
           <div className="mt-6 flex flex-col lg:flex lg:flex-row gap-6">
             <div className="md:flex-4">
-              <OrderSteps />
+             <div>
+              {isLoading
+                ? "Loading orders..."
+                : isError
+                ? "Error fetching orders."
+                : data?.length === 0
+                ? "Currently You Have No Orders"
+                : data?.map((order: OrderData) => (
+                    <div  key={order.order_id}>
+                      <OrderSteps status={order.order_status} />
+                    </div>
+                  ))}
+            </div>
             </div>
             <div className="md:flex-3">
               {isLoading

@@ -1,38 +1,52 @@
 import React from "react";
-  type OrderData = {
-    user_id: string;
-    order_id: string;
-    delivery_location: string | null;
-    sub_total: number;
-    delivery_fee: number;
-    total_price: number;
-    instruction: string;
-    payment_method: string;
-  };
+import { OSCard } from "./OSCard";
+import { useQuery } from "@tanstack/react-query";
+import { FoodItem } from "@/lib/type";
+type OrderData = {
+  user_id: string;
+  order_id: string;
+  delivery_location: string | null;
+  sub_total: number;
+  delivery_fee: number;
+  total_price: number;
+  instruction: string;
+  payment_method: string;
+  created_at: string;
+};
+type order_item = {
+  order_id: string;
+  food_name: string;
+  quantity: number;
+  fooditems: FoodItem;
+};
 interface OrderSummaryProps {
   orderDetail: OrderData;
 }
-export const OrderSummary : React.FC <OrderSummaryProps> = ({ orderDetail }) => {
+export const OrderSummary: React.FC<OrderSummaryProps> = ({ orderDetail }) => {
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["orderSummary", orderDetail.order_id],
+    queryFn: async () => {
+      const res = await fetch(`/api/order/${orderDetail.order_id}`);
+      if (!res.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return res.json();
+    },
+  });
+  if (isLoading) return <p>Loading...</p>;
+  if (isError) return <p>Something went wrong.</p>;
   return (
     <div className="bg-white rounded-2xl w-full p-6">
       <div className="flex justify-between items-center mb-6">
         <div className="text-lg font-bold "> Order Summary</div>
-        <div className="text-sm text-gray-500">10-3-2025</div>
-      </div>
-      <div className="flex items-center gap-6">
-        <div className="w-3 pl-4 pr-6 py-2 rounded bg-orange-200 font-bold">
-          5
-        </div>
-        <div className="flex w-full justify-between items-center">
-          <div className="font-semibold">
-            Chicken Salad
-            <div className="text-xs font-normal text-gray-500">
-              chicken cucumber tomato etc.
-            </div>
-          </div>
-          <div className="font-bold">$50</div>
+        <div className="text-sm text-gray-500">
+          {orderDetail.created_at.slice(0, 10)}
         </div>
       </div>
+      {data.map((order: order_item) => (
+        <OSCard key={order.food_name} order={order}></OSCard>
+      ))}
+
       <div className="  border-b-1 h-0 w-full mt-10  border-gray-400 opacity-50"></div>
       <div className="flex justify-between my-2 text-gray-500">
         <div>Subtotal</div> <div>{orderDetail.sub_total}</div>

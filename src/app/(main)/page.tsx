@@ -15,7 +15,7 @@ export default function Home() {
     <>
       <div className="bg-orange-200 flex items-center justify-center text-xs">
         <Spinner />
-        Backend Features Are Under Development
+        Some Backend Features Are Under Development
       </div>
       <div className="-mx-10 py-0.5 bg-white md:-mx-20 lg:-mx-30">
         <div className="px-10 md:px-20 lg:px-30">

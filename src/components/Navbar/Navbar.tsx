@@ -75,6 +75,7 @@ const Navbar = () => {
               </Link>
             </div>
           </div>
+         
           <div className="flex gap-4 items-center">
             <div>
               <Link href="/cart">
@@ -88,9 +89,10 @@ const Navbar = () => {
             <div className="text-gray-400 items-center gap-4">
               
               {/* When user is not signed in yet*/}
-              <SignedOut>               
+              <SignedOut>     
+                     
                 <SignInButton mode="modal">
-                  <button className="text-gray-400 cursor-pointer">
+                  <button onLoad={()=>{clearZUser();clearCart();}} className="text-gray-400 cursor-pointer">
                     Sign In
                   </button>
                 </SignInButton>               

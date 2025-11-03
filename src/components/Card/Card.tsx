@@ -37,7 +37,7 @@ export const Card: React.FC<CardProps> = ({ food }) => {
         </div>
       </div>
 
-      {/* ✅ Price + Time + Button */}
+      
       <div className="px-2 mt-2 flex justify-between items-center pb-3">
         <div className="font-bold text-green-700">
           ${food.new_price.toFixed(2)}
