@@ -24,10 +24,10 @@ export const OSCard: React.FC<OSCardProps> = ({ order }) => {
         <div className="font-semibold">
           {order.food_name}
           <div className="text-xs font-normal text-gray-500">
-            chicken cucumber tomato etc.
+            ${order.fooditems.new_price} each
           </div>
         </div>
-        <div className="font-bold">${order.fooditems.new_price}</div>
+        <div className="font-bold">${order.fooditems.new_price * order.quantity}</div>
       </div>
     </div>
   );
